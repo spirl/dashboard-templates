@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
+      "name": "DS_PROMETHEUS-KIND-TEST-1",
+      "label": "prometheus-kind-test-1",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -86,7 +86,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -140,7 +140,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -159,7 +159,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -221,7 +221,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -240,7 +240,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "description": "",
       "fieldConfig": {
@@ -289,7 +289,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -308,7 +308,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -386,7 +386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "max_over_time(spirl_application_info{spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", pod=~\"$pods\"}[$interval])",
@@ -461,7 +461,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -548,7 +548,7 @@
           "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           }
         }
       ],
@@ -558,7 +558,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -670,7 +670,7 @@
           "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           }
         }
       ],
@@ -680,7 +680,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -762,7 +762,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -780,7 +780,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -862,7 +862,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
@@ -878,7 +878,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -960,7 +960,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -978,7 +978,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1060,7 +1060,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\"}) by (pod)",
@@ -1076,7 +1076,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1140,7 +1140,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[5m])) by (pod)\n/sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod) * 100",
@@ -1156,7 +1156,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1220,7 +1220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) * 100",
@@ -1236,7 +1236,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1292,7 +1292,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "expr": "sum(container_oom_events_total{pod=~\"$pods\"})",
@@ -1320,7 +1320,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1398,11 +1398,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.99,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\ngrpc_method!=\"SyncTrustBundles\"\n}[$interval])) by (grpc_method,le))",
+          "expr": "histogram_quantile(0.99,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval])) by (grpc_method,le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1417,7 +1417,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1495,11 +1495,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.90,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\ngrpc_method!=\"SyncTrustBundles\"\n}[$interval])) by (grpc_method,le))",
+          "expr": "histogram_quantile(0.90,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval])) by (grpc_method,le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1514,7 +1514,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1592,11 +1592,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.50,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\ngrpc_method!=\"SyncTrustBundles\"\n}[$interval])) by (grpc_method,le))",
+          "expr": "histogram_quantile(0.50,sum(rate(grpc_server_handling_seconds_bucket{\npod=~\"$pods\",\ngrpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval])) by (grpc_method,le))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1611,7 +1611,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1689,11 +1689,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(grpc_server_msg_sent_total{\n  pod=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
+          "expr": "sum(rate(grpc_server_msg_sent_total{\n  pod=~\"$pods\",\n  grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1704,10 +1704,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grpc_server_msg_sent_total{\n  pod=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
+          "expr": "sum(rate(grpc_server_msg_received_total{\n  pod=~\"$pods\", \n  grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", \n  grpc_type=~\"client_stream|bidi_stream\"\n}[$interval])) by (grpc_method)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{grpc_method}}-received",
@@ -1721,104 +1721,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "reqps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 69
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "sum(rate(grpc_server_started_total{\n    pod=~\"$pods\",\n    grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\"}[$interval])) by (grpc_method)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "RPS",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1876,7 +1779,7 @@
       "gridPos": {
         "h": 8,
         "w": 8,
-        "x": 16,
+        "x": 8,
         "y": 69
       },
       "id": 76,
@@ -1898,11 +1801,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(grpc_server_handled_total{\npod=~\"$pods\",\ngrpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\ngrpc_code!=\"OK\"}[$interval])) by (grpc_method) /\nsum(rate(grpc_server_handled_total{\npod=~\"$pods\",\ngrpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\"}[$interval])) by(grpc_method) \n",
+          "expr": "sum(rate(grpc_server_handled_total{\npod=~\"$pods\",\ngrpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\",\ngrpc_code!=\"OK\"}[$interval])) by (grpc_method) /\nsum(rate(grpc_server_handled_total{\npod=~\"$pods\",\ngrpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\"}[$interval])) by(grpc_method) \n",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1919,13 +1822,108 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 69
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(grpc_server_started_total{\n    pod=~\"$pods\",\n    grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\"}[$interval])) by (grpc_method)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{grpc_service}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "RPS",
+      "type": "timeseries"
     }
   ],
   "refresh": "10s",
   "schemaVersion": 41,
-  "tags": [
-    "spirl"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
@@ -1933,8 +1931,8 @@
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "text": "5m",
-          "value": "5m"
+          "text": "1h",
+          "value": "1h"
         },
         "name": "interval",
         "options": [
@@ -1944,7 +1942,7 @@
             "value": "1m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "5m",
             "value": "5m"
           },
@@ -1964,7 +1962,7 @@
             "value": "30m"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "1h",
             "value": "1h"
           }
@@ -1978,9 +1976,9 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
         },
-        "definition": "label_values({spirl_component=\"trust_domain_server\"},spirl_trust_domain)",
+        "definition": "label_values({spirl_component=\"agent\"},spirl_trust_domain)",
         "description": "",
         "includeAll": false,
         "label": "spirl_trust_domain",
@@ -1988,7 +1986,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_component=\"trust_domain_server\"},spirl_trust_domain)",
+          "query": "label_values({spirl_component=\"agent\"},spirl_trust_domain)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2000,9 +1998,9 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"trust_domain_server\"},spirl_trust_domain_deployment)",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"agent\"},spirl_trust_domain_deployment)",
         "description": "",
         "includeAll": true,
         "label": "spirl_trust_domain_deployment",
@@ -2011,7 +2009,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"trust_domain_server\"},spirl_trust_domain_deployment)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"agent\"},spirl_trust_domain_deployment)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2023,9 +2021,9 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"trust_domain_server\"},pod)",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},pod)",
         "description": "",
         "includeAll": true,
         "label": "pods",
@@ -2034,7 +2032,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"trust_domain_server\"},pod)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},pod)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2044,8 +2042,8 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2025-04-08T15:31:46.574Z",
+    "to": "2025-04-08T15:48:44.165Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2059,8 +2057,8 @@
     ]
   },
   "timezone": "",
-  "title": "SPIRL Trust Domain Server",
-  "uid": "gn38yKZnb",
-  "version": 8,
+  "title": "SPIRL Trust Domain Agents Copy",
+  "uid": "deiaztlwpaxa8a",
+  "version": 2,
   "weekStart": ""
 }
