@@ -541,15 +541,15 @@
       "pluginVersion": "11.6.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "editorMode": "code",
           "expr": "sum(rate(container_network_receive_bytes_total{pod=~\"$pods\"}[$interval])) by (pod)",
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+          "refId": "A"
         }
       ],
       "title": "Network Bandwidth - Received",
@@ -663,15 +663,15 @@
       "pluginVersion": "11.6.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "editorMode": "code",
           "expr": "sum(rate(container_network_transmit_bytes_total{pod=~\"$pods\"}[$interval])) by(pod)",
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+          "refId": "A"
         }
       ],
       "title": "Network Bandwidth - Transmited",
@@ -1100,7 +1100,7 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -1150,7 +1150,7 @@
           "refId": "A"
         }
       ],
-      "title": "Pods CPU Usage Limit",
+      "title": "Pods CPU Usage Limita",
       "type": "bargauge"
     },
     {
@@ -1301,7 +1301,7 @@
           "refId": "A"
         }
       ],
-      "title": "OOM Events $pod",
+      "title": "OOM Events",
       "type": "stat"
     },
     {
@@ -2044,7 +2044,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -2061,6 +2061,6 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Server",
   "uid": "spirl-trust-domain-server",
-  "version": 8,
+  "version": 3,
   "weekStart": ""
 }
