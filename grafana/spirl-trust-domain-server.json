@@ -1980,7 +1980,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({spirl_component=\"trust_domain_server\"},spirl_trust_domain)",
+        "definition": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
         "description": "",
         "includeAll": false,
         "label": "spirl_trust_domain",
@@ -1988,7 +1988,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_component=\"trust_domain_server\"},spirl_trust_domain)",
+          "query": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2002,7 +2002,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"trust_domain_server\"},spirl_trust_domain_deployment)",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
         "description": "",
         "includeAll": true,
         "label": "spirl_trust_domain_deployment",
@@ -2011,7 +2011,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"trust_domain_server\"},spirl_trust_domain_deployment)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -2025,7 +2025,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"trust_domain_server\"},pod)",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},pod)",
         "description": "",
         "includeAll": true,
         "label": "pods",
@@ -2034,7 +2034,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"trust_domain_server\"},pod)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},pod)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
