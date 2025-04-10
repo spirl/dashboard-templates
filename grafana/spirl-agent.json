@@ -2044,8 +2044,8 @@
     ]
   },
   "time": {
-    "from": "2025-04-08T15:31:46.574Z",
-    "to": "2025-04-08T15:48:44.165Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
