@@ -737,6 +737,7 @@
   "schemaVersion": 41,
   "tags": [
     "spirl",
+    "istio",
     "envoy"
   ],
   "templating": {
@@ -861,7 +862,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Workloads Credential Rotation",
+  "title": "Service Mesh",
   "uid": "spirl-envoy-workloads",
   "version": 15,
   "weekStart": ""

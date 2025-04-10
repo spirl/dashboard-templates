@@ -1923,7 +1923,9 @@
   ],
   "refresh": "10s",
   "schemaVersion": 41,
-  "tags": [],
+  "tags": [
+    "spirl"
+  ],
   "templating": {
     "list": [
       {
