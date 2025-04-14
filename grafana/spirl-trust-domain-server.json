@@ -2077,8 +2077,8 @@
     ]
   },
   "timezone": "",
-  "title": "SPIRL Trust Domain Servera",
-  "uid": "spirl-trust-domain-servera",
+  "title": "SPIRL Trust Domain Server",
+  "uid": "spirl-trust-domain-server",
   "version": 2,
   "weekStart": ""
 }
