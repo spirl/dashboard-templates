@@ -88,6 +88,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows the successful API call percentage of all APIs exposed by the server.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -161,6 +162,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 95th percentile response time (considering all APIs). Represents the maximum latency experienced by 95% of requests, measured in seconds.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -242,7 +244,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "",
+      "description": "Requests per second. Shows the current throughput of all API calls being handled by server.",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -310,6 +312,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows version information for all trust domain deployments, helping track different versions in use.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -463,6 +466,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows network traffic received by each pod, measured in bytes per second.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -560,6 +564,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows network traffic transmitted by each pod, measured in bytes per second.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -682,6 +687,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Current CPU utilization for each pod, measured in CPU cores.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -782,6 +788,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Current memory usage for each pod, measured in bytes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -880,6 +887,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum allocated CPU cores for each pod based on resource limits.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -980,6 +988,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Maximum allocated memory for each pod based on resource limits.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1078,6 +1087,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Percentage of CPU usage compared to the pod limit. Values approaching red indicate pods nearing their CPU resource limits.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1100,7 +1110,7 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1158,6 +1168,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Percentage of memory usage compared to the pod limit. Values approaching red indicate pods nearing their memory resource limits.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1238,6 +1249,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Out of Memory events count. Shows how many times pods have been terminated due to memory limits being exceeded.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1322,6 +1334,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 99th percentile response time. Represents the maximum latency experienced by 99% of requests.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1419,6 +1432,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 90th percentile response time. Represents the maximum latency experienced by 90% of requests.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1516,6 +1530,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 50th percentile (median) response time. Represents the typical latency experienced by most requests.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1613,6 +1628,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Rate of messages sent and received through streaming operations, showing the bidirectional traffic volume.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1723,6 +1739,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Requests per second. Shows the current throughput of API calls being handled by RPC.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1820,6 +1837,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Percentage of API calls resulting in errors. Lower values indicate better service health.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2061,6 +2079,6 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Server",
   "uid": "spirl-trust-domain-server",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }
