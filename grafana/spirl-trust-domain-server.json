@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
+      "name": "DS_PROMETHEUS-SERVER",
+      "label": "prometheus-server",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -86,7 +86,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Shows the successful API call percentage of all APIs exposed by the server.",
       "fieldConfig": {
@@ -141,7 +141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -160,7 +160,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "The 95th percentile response time (considering all APIs). Represents the maximum latency experienced by 95% of requests, measured in seconds.",
       "fieldConfig": {
@@ -223,7 +223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -242,7 +242,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Requests per second. Shows the current throughput of all API calls being handled by server.",
       "fieldConfig": {
@@ -291,7 +291,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -310,7 +310,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Shows version information for all trust domain deployments, helping track different versions in use.",
       "fieldConfig": {
@@ -389,7 +389,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "max_over_time(spirl_application_info{spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", pod=~\"$pods\"}[$interval])",
@@ -464,7 +464,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Shows network traffic received by each pod, measured in bytes per second.",
       "fieldConfig": {
@@ -547,7 +547,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_receive_bytes_total{pod=~\"$pods\"}[$interval])) by (pod)",
@@ -562,7 +562,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Shows network traffic transmitted by each pod, measured in bytes per second.",
       "fieldConfig": {
@@ -670,7 +670,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_transmit_bytes_total{pod=~\"$pods\"}[$interval])) by(pod)",
@@ -685,7 +685,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Current CPU utilization for each pod, measured in CPU cores.",
       "fieldConfig": {
@@ -768,7 +768,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -786,7 +786,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Current memory usage for each pod, measured in bytes.",
       "fieldConfig": {
@@ -869,7 +869,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
@@ -885,7 +885,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Maximum allocated CPU cores for each pod based on resource limits.",
       "fieldConfig": {
@@ -968,7 +968,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -986,7 +986,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Maximum allocated memory for each pod based on resource limits.",
       "fieldConfig": {
@@ -1069,7 +1069,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\"}) by (pod)",
@@ -1085,7 +1085,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Percentage of CPU usage compared to the pod limit. Values approaching red indicate pods nearing their CPU resource limits.",
       "fieldConfig": {
@@ -1150,7 +1150,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[5m])) by (pod)\n/sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod) * 100",
@@ -1166,7 +1166,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Percentage of memory usage compared to the pod limit. Values approaching red indicate pods nearing their memory resource limits.",
       "fieldConfig": {
@@ -1191,7 +1191,7 @@
               }
             ]
           },
-          "unit": "percentutil"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1231,10 +1231,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) * 100",
+          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\" }) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\"}) by (pod) * 100",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1247,7 +1247,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Out of Memory events count. Shows how many times pods have been terminated due to memory limits being exceeded.",
       "fieldConfig": {
@@ -1304,7 +1304,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "sum(container_oom_events_total{pod=~\"$pods\"})",
@@ -1332,7 +1332,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "The 99th percentile response time. Represents the maximum latency experienced by 99% of requests.",
       "fieldConfig": {
@@ -1411,7 +1411,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1430,7 +1430,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "The 90th percentile response time. Represents the maximum latency experienced by 90% of requests.",
       "fieldConfig": {
@@ -1509,7 +1509,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1528,7 +1528,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "The 50th percentile (median) response time. Represents the typical latency experienced by most requests.",
       "fieldConfig": {
@@ -1607,7 +1607,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1626,7 +1626,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Rate of messages sent and received through streaming operations, showing the bidirectional traffic volume.",
       "fieldConfig": {
@@ -1705,7 +1705,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1720,7 +1720,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grpc_server_msg_sent_total{\n  pod=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
@@ -1737,7 +1737,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Requests per second. Shows the current throughput of API calls being handled by RPC.",
       "fieldConfig": {
@@ -1816,7 +1816,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1835,7 +1835,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${DS_PROMETHEUS-SERVER}"
       },
       "description": "Percentage of API calls resulting in errors. Lower values indicate better service health.",
       "fieldConfig": {
@@ -1916,7 +1916,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1996,7 +1996,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-SERVER}"
         },
         "definition": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
         "description": "",
@@ -2018,7 +2018,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-SERVER}"
         },
         "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
         "description": "",
@@ -2041,7 +2041,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${DS_PROMETHEUS-SERVER}"
         },
         "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},pod)",
         "description": "",
@@ -2077,8 +2077,8 @@
     ]
   },
   "timezone": "",
-  "title": "SPIRL Trust Domain Server",
-  "uid": "spirl-trust-domain-server",
+  "title": "SPIRL Trust Domain Servera",
+  "uid": "spirl-trust-domain-servera",
   "version": 2,
   "weekStart": ""
 }
