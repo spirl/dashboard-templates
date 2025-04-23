@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS-KIND-TEST-1",
-      "label": "prometheus-kind-test-1",
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
       "description": "",
       "type": "datasource"
     }
@@ -59,8 +59,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows the connection state between Envoy proxies and the Workload API. Green indicates an active connection, red indicates a disconnected state.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -115,10 +116,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "envoy_sds_default_control_plane_connected_state{pod=~\"$pods\"}",
+          "expr": "envoy_sds_default_control_plane_connected_state{pod=~\"$pods\", pod!=\"\"}",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -131,8 +132,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Displays the rate of certificate update failures as a percentage of total update attempts.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -214,11 +216,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1 - sum(rate(envoy_sds_default_update_success{pod=~\"$pods\"}[$interval])) by(pod) / sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\"}[$interval])) by(pod)",
+          "expr": "1 - sum(rate(envoy_sds_default_update_success{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod) / sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod)",
           "hide": true,
           "instant": true,
           "interval": "",
@@ -229,10 +231,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_update_failure{pod=~\"$pods\"}[$interval])) by(pod) / \nclamp_min(sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\"}[$interval])) by(pod), 0.0001)",
+          "expr": "sum(rate(envoy_sds_default_update_failure{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod) / \nclamp_min(sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod), 0.0001)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{pod}}",
@@ -246,8 +248,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Shows the number of failed key rotation operations per second.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -331,10 +334,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_key_rotation_failed{pod=~\"$pods\"}[$interval])) by(pod)",
+          "expr": "sum(rate(envoy_sds_default_key_rotation_failed{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod)",
           "instant": false,
           "legendFormat": "{{pod}}attempt",
           "range": true,
@@ -347,8 +350,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 95th percentile of time taken to complete certificate updates.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -393,17 +397,10 @@
             "steps": [
               {
                 "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "green",
-                "value": 1
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -432,10 +429,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.95, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\"}[$interval])) by (le, pod))",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -448,8 +445,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The 90th percentile of time taken to complete certificate updates.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -496,7 +494,8 @@
                 "color": "green"
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -525,10 +524,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.90, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.90, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\"}[$interval])) by (le, pod))",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -541,8 +540,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+        "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The median (50th percentile) time taken to complete certificate updates.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -589,7 +589,8 @@
                 "color": "green"
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": []
       },
@@ -618,10 +619,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.50, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.50, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\"}[$interval])) by (le, pod))",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -629,6 +630,113 @@
         }
       ],
       "title": "Certificate Update Latency (p50)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "description": "Total number of certificate updates attempted and succeeded.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "updates/sec",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
+          "instant": false,
+          "legendFormat": "{{pod}} attempts",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(envoy_sds_default_update_success{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
+          "instant": false,
+          "legendFormat": "{{pod}} successes",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Certificate Update Activity",
       "type": "timeseries"
     }
   ],
@@ -644,7 +752,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(envoy_sds_default_control_plane_connected_state,namespace)",
         "includeAll": true,
@@ -666,7 +774,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values({namespace=~\"$namespace\"},app)",
         "description": "",
@@ -688,7 +796,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-KIND-TEST-1}"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"},pod)",
         "description": "",
@@ -755,13 +863,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Service Mesh",
   "uid": "spirl-envoy-workloads",
-  "version": 15,
+  "version": 2,
   "weekStart": ""
 }
