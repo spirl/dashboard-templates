@@ -238,6 +238,20 @@
         }
       ],
       "title": "Latency (p95)",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "Value"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
       "type": "stat"
     },
     {
