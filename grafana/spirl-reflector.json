@@ -472,7 +472,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 25,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -481,6 +481,9 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -490,7 +493,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "percent"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -502,13 +505,10 @@
             "steps": [
               {
                 "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "ops"
         },
         "overrides": []
       },
@@ -541,7 +541,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(kind, source) (increase(spirl_reflector_mint_svid_total[$__range]))",
+          "expr": "sum(rate(spirl_reflector_mint_svid_total[$interval])) by(kind, source)",
           "instant": false,
           "legendFormat": "{{kind}} - {{source}}",
           "range": true,
@@ -2638,8 +2638,8 @@
     ]
   },
   "time": {
-    "from": "now-30m",
-    "to": "now"
+    "from": "2025-07-16T23:03:54.272Z",
+    "to": "2025-07-16T23:20:53.627Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2655,6 +2655,6 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Reflector",
   "uid": "spirl-trust-domain-reflector",
-  "version": 4,
+  "version": 3,
   "weekStart": ""
 }
