@@ -576,7 +576,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(rate(container_network_transmit_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by (${pod_label})",
+          "expr": "max(rate(container_network_transmit_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -675,7 +675,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(rate(container_network_receive_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by (${pod_label})",
+          "expr": "max(rate(container_network_receive_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -775,7 +775,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})",
+          "expr": "max(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -875,7 +875,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(container_memory_working_set_bytes{container!=\"\", ${pod_label}=~\"$pods\"}) by (${pod_label})",
+          "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -975,7 +975,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
+          "expr": "max(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"} / container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -1075,7 +1075,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
+          "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1156,7 +1156,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})\n/sum(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod) / sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"} / container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1237,7 +1237,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "\nsum(container_memory_working_set_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label}) / \nsum(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
+          "expr": "sum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / sum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1310,8 +1310,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(container_oom_events_total{${pod_label}=~\"$pods\"})",
-          "legendFormat": "{{${pod_label}}}",
+          "expr": "sum(container_oom_events_total{pod=~\"$pods\"})",
+          "legendFormat": "{{pod}}",
           "range": true,
           "refId": "A"
         }
