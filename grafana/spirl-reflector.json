@@ -2619,27 +2619,50 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"reflector\"},pod)",
-        "description": "",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"reflector\"},${pod_label})",
+        "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
-        "label": "pods",
+        "label": "Pods",
         "multi": true,
         "name": "pods",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"reflector\"},pod)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"reflector\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
         "type": "query"
+      },
+      {
+        "current": {
+          "text": "pod",
+          "value": "pod"
+        },
+        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label.",
+        "label": "Pod Label",
+        "name": "pod_label",
+        "options": [
+          {
+            "selected": true,
+            "text": "pod",
+            "value": "pod"
+          },
+          {
+            "selected": false,
+            "text": "k8s_pod_name",
+            "value": "k8s_pod_name"
+          }
+        ],
+        "query": "pod,k8s_pod_name",
+        "type": "custom"
       }
     ]
   },
   "time": {
-    "from": "2025-07-16T23:03:54.272Z",
-    "to": "2025-07-16T23:20:53.627Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -2655,6 +2678,6 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Reflector",
   "uid": "spirl-trust-domain-reflector",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

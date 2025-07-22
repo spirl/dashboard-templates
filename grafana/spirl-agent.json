@@ -2,7 +2,7 @@
   "__inputs": [
     {
       "name": "DS_PROMETHEUS",
-      "label": "local-server",
+      "label": "datasource",
       "description": "",
       "type": "datasource"
     }
@@ -147,7 +147,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "1 - ((sum(rate(grpc_server_handled_total{pod=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_code!=\"OK\", grpc_code!=\"Canceled\"}[$interval]))) / clamp_min(sum(rate(grpc_server_handled_total{pod=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\"}[$interval])), 0.001))",
+          "expr": "1 - ((sum(rate(grpc_server_handled_total{${pod_label}=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_code!=\"OK\", grpc_code!=\"Canceled\"}[$interval]))) / clamp_min(sum(rate(grpc_server_handled_total{${pod_label}=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\"}[$interval])), 0.001))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -357,7 +357,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(grpc_server_started_total{pod=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval]))",
+          "expr": "sum(rate(grpc_server_started_total{${pod_label}=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -429,7 +429,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max by (spirl_trust_domain, spirl_trust_domain_deployment, spirl_app_version) (spirl_application_info{pod=~\"$pods\", spirl_component=\"agent\", spirl_trust_domain!=\"\"})",
+          "expr": "max by (spirl_trust_domain, spirl_trust_domain_deployment, spirl_app_version) (spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"agent\", spirl_trust_domain!=\"\"})",
           "format": "table",
           "instant": true,
           "legendFormat": "",
@@ -576,7 +576,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(rate(container_network_transmit_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
+          "expr": "max(rate(container_network_transmit_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -675,7 +675,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(rate(container_network_receive_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
+          "expr": "max(rate(container_network_receive_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -775,7 +775,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)",
+          "expr": "max(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -875,7 +875,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
+          "expr": "max(container_memory_working_set_bytes{container!=\"\", ${pod_label}=~\"$pods\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -975,7 +975,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -1075,7 +1075,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1156,7 +1156,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)\n/sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})\n/sum(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1237,7 +1237,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "\nsum(container_memory_working_set_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label}) / \nsum(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1310,8 +1310,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(container_oom_events_total{pod=~\"$pods\"})",
-          "legendFormat": "{{pod}}",
+          "expr": "sum(container_oom_events_total{${pod_label}=~\"$pods\"})",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "A"
         }
@@ -1823,7 +1823,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(grpc_server_started_total{pod=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval])) by (grpc_method)",
+          "expr": "sum(rate(grpc_server_started_total{${pod_label}=~\"$pods\", grpc_service=~\"SpiffeWorkloadAPI|envoy.service.secret.v3.SecretDiscoveryService\", grpc_type=\"unary\"}[$interval])) by (grpc_method)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -2040,21 +2040,36 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},pod)",
-        "description": "",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},${pod_label})",
+        "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
-        "label": "pods",
+        "label": "Pods",
         "multi": true,
         "name": "pods",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},pod)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
         "type": "query"
+      },
+      {
+        "name": "pod_label",
+        "label": "Pod Label",
+        "type": "custom",
+        "query": "pod,k8s_pod_name",
+        "current": {
+          "text": "pod",
+          "value": "pod"
+        },
+        "options": [
+          { "text": "pod", "value": "pod", "selected": true },
+          { "text": "k8s_pod_name", "value": "k8s_pod_name", "selected": false }
+        ],
+        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label."
       }
     ]
   },

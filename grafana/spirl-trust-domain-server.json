@@ -577,7 +577,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
+          "expr": "sum(rate(container_network_receive_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by (${pod_label})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -675,7 +675,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by(pod)",
+          "expr": "sum(rate(container_network_transmit_bytes_total{${pod_label}=~\"$pods\", ${pod_label}!=\"\"}[$interval])) by(${pod_label})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -774,7 +774,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)",
+          "expr": "max(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -874,7 +874,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
+          "expr": "max(container_memory_working_set_bytes{container!=\"\", ${pod_label}=~\"$pods\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -974,7 +974,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -1074,7 +1074,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1155,7 +1155,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)\n/sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{${pod_label}=~\"$pods\", container!=\"\"}[$interval])) by (${pod_label})\n/sum(container_spec_cpu_quota{${pod_label}=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1236,7 +1236,7 @@
             "uid": "${DS_PROMETHEUS-SERVER}"
           },
           "editorMode": "code",
-          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "\nsum(container_memory_working_set_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label}) / \nsum(container_spec_memory_limit_bytes{${pod_label}=~\"$pods\", container!=\"\"}) by (${pod_label})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -2460,7 +2460,9 @@
         ],
         "query": "1m,5m,10m,15m,30m,1h",
         "refresh": 2,
-        "type": "interval"
+        "type": "interval",
+        "description": "Select the time range over which rates and percentiles are calculated (e.g., 5m = last 5 minutes).",
+        "label": "Interval"
       },
       {
         "allowCustomValue": false,
@@ -2470,9 +2472,7 @@
           "uid": "${DS_PROMETHEUS-SERVER}"
         },
         "definition": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
-        "description": "",
         "includeAll": false,
-        "label": "spirl_trust_domain",
         "name": "spirl_trust_domain",
         "options": [],
         "query": {
@@ -2482,7 +2482,8 @@
         },
         "refresh": 2,
         "regex": "",
-        "type": "query"
+        "type": "query",
+        "label": "SPIRL Trust Domain"
       },
       {
         "allowCustomValue": false,
@@ -2492,9 +2493,8 @@
           "uid": "${DS_PROMETHEUS-SERVER}"
         },
         "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
-        "description": "",
+        "description": "Select one or more trust domain deployments to filter metrics. Useful for multi-deployment environments.",
         "includeAll": true,
-        "label": "spirl_trust_domain_deployment",
         "multi": true,
         "name": "spirl_trust_domain_deployment",
         "options": [],
@@ -2505,7 +2505,8 @@
         },
         "refresh": 2,
         "regex": "",
-        "type": "query"
+        "type": "query",
+        "label": "SPIRL Trust Domain Deployment"
       },
       {
         "allowCustomValue": true,
@@ -2514,21 +2515,36 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS-SERVER}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},pod)",
-        "description": "",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},${pod_label})",
+        "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
-        "label": "pods",
         "multi": true,
         "name": "pods",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},pod)",
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
-        "type": "query"
+        "type": "query",
+        "label": "Pods"
+      },
+      {
+        "name": "pod_label",
+        "label": "Pod Label",
+        "type": "custom",
+        "query": "pod,k8s_pod_name",
+        "current": {
+          "text": "pod",
+          "value": "pod"
+        },
+        "options": [
+          { "text": "pod", "value": "pod", "selected": true },
+          { "text": "k8s_pod_name", "value": "k8s_pod_name", "selected": false }
+        ],
+        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label."
       }
     ]
   },
