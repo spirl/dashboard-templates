@@ -442,7 +442,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(kind, source) (increase(spirl_reflector_mint_svid_total[$__range]))",
+          "expr": "sum by(kind, source) (increase(spirl_reflector_mint_svid_total{${pod_label}=~\"$pods\"}[$__range]))",
           "instant": false,
           "legendFormat": "{{kind}} - {{source}}",
           "range": true,
@@ -541,7 +541,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(spirl_reflector_mint_svid_total[$interval])) by(kind, source)",
+          "expr": "sum(rate(spirl_reflector_mint_svid_total{${pod_label}=~\"$pods\"}[$interval])) by(kind, source)",
           "instant": false,
           "legendFormat": "{{kind}} - {{source}}",
           "range": true,
@@ -2678,6 +2678,6 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Reflector",
   "uid": "spirl-trust-domain-reflector",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
