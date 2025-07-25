@@ -1156,7 +1156,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"cpu\"}) by (pod)",
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -1256,7 +1256,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "max(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"memory\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1337,7 +1337,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)\n/sum(container_spec_cpu_quota{pod=~\"$pods\", container!=\"\"}\n  /container_spec_cpu_period{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod)\n/sum(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"cpu\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1418,7 +1418,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(container_spec_memory_limit_bytes{pod=~\"$pods\", container!=\"\"}) by (pod)",
+          "expr": "\nsum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / \nsum(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"memory\"}) by (pod)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
