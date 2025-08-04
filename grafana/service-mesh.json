@@ -119,9 +119,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "envoy_sds_default_control_plane_connected_state{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}",
+          "expr": "envoy_sds_default_control_plane_connected_state{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}",
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "A"
         }
@@ -220,7 +220,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1 - sum(rate(envoy_sds_default_update_success{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by(pod) / sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by(pod)",
+          "expr": "1 - sum(rate(envoy_sds_default_update_success{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label}) / sum(rate(envoy_sds_default_update_attempt{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label})",
           "hide": true,
           "instant": true,
           "interval": "",
@@ -234,10 +234,10 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_update_failure{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by(pod) / \nclamp_min(sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by(pod), 0.0001)",
+          "expr": "sum(rate(envoy_sds_default_update_failure{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label}) / \nclamp_min(sum(rate(envoy_sds_default_update_attempt{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label}), 0.0001)",
           "hide": false,
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "B"
         }
@@ -337,9 +337,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_key_rotation_failed{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by(pod)",
+          "expr": "sum(rate(envoy_sds_default_key_rotation_failed{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label})",
           "instant": false,
-          "legendFormat": "{{pod}}attempt",
+          "legendFormat": "{{${pod_label}}}attempt",
           "range": true,
           "refId": "A"
         }
@@ -432,9 +432,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.95, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "A"
         }
@@ -527,9 +527,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.90, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.90, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "A"
         }
@@ -622,9 +622,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.50, sum(rate(envoy_sds_default_update_duration_bucket{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, pod))",
+          "expr": "histogram_quantile(0.50, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
           "instant": false,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{${pod_label}}}",
           "range": true,
           "refId": "A"
         }
@@ -717,9 +717,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_update_attempt{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by (pod)",
+          "expr": "sum(rate(envoy_sds_default_update_attempt{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (${pod_label})",
           "instant": false,
-          "legendFormat": "{{pod}} attempts",
+          "legendFormat": "{{${pod_label}}} attempts",
           "range": true,
           "refId": "A"
         },
@@ -729,9 +729,9 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_sds_default_update_success{pod=~\"$pods\", pod!=\"\", spirl_enabled=\"true\"}[$interval])) by (pod)",
+          "expr": "sum(rate(envoy_sds_default_update_success{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (${pod_label})",
           "instant": false,
-          "legendFormat": "{{pod}} successes",
+          "legendFormat": "{{${pod_label}}} successes",
           "range": true,
           "refId": "B"
         }
@@ -798,16 +798,16 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"},pod)",
-        "description": "",
+        "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"},${pod_label})",
+        "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
-        "label": "pods",
+        "label": "Pods",
         "multi": true,
         "name": "pods",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({namespace=~\"$namespace\", app=~\"$app\"},pod)",
+          "query": "label_values({namespace=~\"$namespace\", app=~\"$app\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -859,6 +859,21 @@
         "query": "1m,5m,10m,15m,30m,1h",
         "refresh": 2,
         "type": "interval"
+      },
+      {
+        "name": "pod_label",
+        "label": "Pod Label",
+        "type": "custom",
+        "query": "pod,k8s_pod_name",
+        "current": {
+          "text": "pod",
+          "value": "pod"
+        },
+        "options": [
+          { "text": "pod", "value": "pod", "selected": true },
+          { "text": "k8s_pod_name", "value": "k8s_pod_name", "selected": false }
+        ],
+        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label."
       }
     ]
   },
