@@ -183,7 +183,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, \n  sum(rate(spirl_agent_svid_rotation_duration_seconds_bucket{\n${pod_label}=~\"$pods\"}[$interval])) by (le)\n)",
+          "expr": "histogram_quantile(0.95, \n  sum(rate(spirl_agent_mint_svid_duration_seconds_bucket{\n${pod_label}=~\"$pods\"}[$interval])) by (le)\n)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
