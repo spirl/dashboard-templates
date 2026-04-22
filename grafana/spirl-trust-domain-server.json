@@ -1,51 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS-SERVER",
-      "label": "prometheus-server",
-      "description": "",
-      "type": "datasource"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.6.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -65,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -84,7 +37,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Shows the successful API call percentage of all APIs exposed by the server.",
       "fieldConfig": {
@@ -97,7 +50,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -138,16 +92,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "1 - ((sum(rate(grpc_server_handled_total{${pod_label}=~\"$pods\", grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\", grpc_code!=\"OK\", grpc_code!=\"Canceled\"}[$interval]))) / clamp_min(sum(rate(grpc_server_handled_total{${pod_label}=~\"$pods\", grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\"}[$interval])), 0.001))",
+          "expr": "1 - (\n    (\n        sum(\n            rate(\n                grpc_server_handled_total{\n                    ${pod_label}=~\"$pods\", \n                    grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\", \n                    grpc_code!=\"OK\", \n                    grpc_code!=\"Canceled\",\n                    grpc_code!=\"NotFound\"\n                    }[$interval]\n                )\n            )\n        ) \n        / \n        clamp_min(\n            sum(\n                rate(\n                    grpc_server_handled_total{\n                        ${pod_label}=~\"$pods\", \n                        grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\"\n                    }[$interval]\n                )\n            ), 0.001\n        )\n    )",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -162,7 +116,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "The 95th percentile response time (considering all APIs). Represents the maximum latency experienced by 95% of requests, measured in seconds.",
       "fieldConfig": {
@@ -185,7 +139,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -219,12 +174,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -257,7 +212,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Requests per second. Shows the current throughput of all API calls being handled by server.",
       "fieldConfig": {
@@ -289,6 +244,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -303,7 +259,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -348,12 +305,12 @@
         },
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -372,7 +329,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Displays the current version information for each trust domain deployment.",
       "fieldConfig": {
@@ -385,6 +342,9 @@
             "cellOptions": {
               "type": "auto"
             },
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -392,7 +352,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -412,22 +373,14 @@
       "id": 95,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max by (spirl_trust_domain, spirl_trust_domain_deployment, spirl_app_version) (spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"server\", spirl_trust_domain!=\"\"})",
@@ -491,7 +444,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Shows network traffic received by each pod, measured in bytes per second.",
       "fieldConfig": {
@@ -523,6 +476,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -537,7 +491,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -569,12 +524,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_receive_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
@@ -589,7 +544,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Shows network traffic transmitted by each pod, measured in bytes per second.",
       "fieldConfig": {
@@ -621,6 +576,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -635,7 +591,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -667,12 +624,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_transmit_bytes_total{pod=~\"$pods\", pod!=\"\"}[$interval])) by (pod)",
@@ -687,7 +644,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Current CPU utilization for each pod, measured in CPU cores.",
       "fieldConfig": {
@@ -719,6 +676,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -733,7 +691,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -765,12 +724,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -788,7 +747,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Current memory usage for each pod, measured in bytes.",
       "fieldConfig": {
@@ -820,6 +779,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -834,7 +794,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -866,12 +827,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "max(container_memory_working_set_bytes{container!=\"\", pod=~\"$pods\"}) by (pod)",
@@ -887,7 +848,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Maximum allocated CPU cores for each pod based on resource limits.",
       "fieldConfig": {
@@ -919,6 +880,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -933,7 +895,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -965,12 +928,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -988,7 +951,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Maximum allocated memory for each pod based on resource limits.",
       "fieldConfig": {
@@ -1020,6 +983,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1034,7 +998,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1066,12 +1031,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1088,7 +1053,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Percentage of CPU usage compared to the pod limit. Values approaching red indicate pods nearing their CPU resource limits.",
       "fieldConfig": {
@@ -1101,7 +1066,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1148,12 +1114,12 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pods\", container!=\"\"}[$interval])) by (pod) / sum(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"cpu\"}) by (pod)",
@@ -1169,7 +1135,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Percentage of memory usage compared to the pod limit. Values approaching red indicate pods nearing their memory resource limits.",
       "fieldConfig": {
@@ -1182,7 +1148,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1229,12 +1196,12 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_working_set_bytes{pod=~\"$pods\", container!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{pod=~\"$pods\", container!=\"\", resource=\"memory\"}) by (pod)",
@@ -1250,7 +1217,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Out of Memory events count. Shows how many times pods have been terminated due to memory limits being exceeded.",
       "fieldConfig": {
@@ -1263,7 +1230,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1302,12 +1270,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(container_oom_events_total{pod=~\"$pods\"})",
@@ -1335,7 +1303,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "The 99th percentile response time. Represents the maximum latency experienced by 99% of requests.",
       "fieldConfig": {
@@ -1367,6 +1335,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1381,7 +1350,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1409,12 +1379,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1433,7 +1403,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "The 90th percentile response time. Represents the maximum latency experienced by 90% of requests.",
       "fieldConfig": {
@@ -1465,6 +1435,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1479,7 +1450,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1507,12 +1479,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1531,7 +1503,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "The 50th percentile (median) response time. Represents the typical latency experienced by most requests.",
       "fieldConfig": {
@@ -1563,6 +1535,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1577,7 +1550,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1605,12 +1579,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1629,7 +1603,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Rate of messages sent and received through streaming operations, showing the bidirectional traffic volume.",
       "fieldConfig": {
@@ -1661,6 +1635,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1675,7 +1650,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1703,12 +1679,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1723,7 +1699,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(grpc_server_msg_sent_total{\n  ${pod_label}=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
@@ -1740,7 +1716,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Requests per second. Shows the current throughput of API calls being handled by RPC.",
       "fieldConfig": {
@@ -1772,6 +1748,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1786,7 +1763,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1814,12 +1792,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1838,7 +1816,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Percentage of API calls resulting in errors. Lower values indicate better service health.",
       "fieldConfig": {
@@ -1870,6 +1848,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1886,7 +1865,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -1914,12 +1894,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1941,13 +1921,13 @@
       ],
       "type": "timeseries"
     },
-        {
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 85
+        "y": 77
       },
       "id": 105,
       "panels": [],
@@ -1957,7 +1937,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Percentile response time. Represents the maximum latency experienced by\n100%, 99%, 95% and 50% of requests.",
       "fieldConfig": {
@@ -1989,6 +1969,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2003,7 +1984,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -2015,7 +1997,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 86
+        "y": 78
       },
       "id": 110,
       "options": {
@@ -2031,12 +2013,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2051,7 +2033,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2067,7 +2049,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2083,7 +2065,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2103,7 +2085,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Requests per second made to the control plane. Shows the current throughput of API calls being handled by RPC.",
       "fieldConfig": {
@@ -2135,6 +2117,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2149,7 +2132,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -2161,7 +2145,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 86
+        "y": 78
       },
       "id": 108,
       "options": {
@@ -2177,12 +2161,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2201,7 +2185,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "API calls to the control plane resulting in errors by error code. Lower values indicate better service health.",
       "fieldConfig": {
@@ -2233,6 +2217,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2247,7 +2232,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -2262,7 +2248,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 94
+        "y": 86
       },
       "id": 111,
       "options": {
@@ -2278,12 +2264,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2308,7 +2294,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS-SERVER}"
+        "uid": "${datasource}"
       },
       "description": "Percentage of API calls to the control plane resulting in errors. Lower values indicate better connectivity health.",
       "fieldConfig": {
@@ -2340,6 +2326,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2356,7 +2343,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -2368,7 +2356,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 94
+        "y": 86
       },
       "id": 109,
       "options": {
@@ -2384,12 +2372,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS-SERVER}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2412,13 +2400,26 @@
       "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "10s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "spirl"
   ],
   "templating": {
     "list": [
+      {
+        "current": {},
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
       {
         "auto": false,
         "auto_count": 30,
@@ -2427,6 +2428,8 @@
           "text": "5m",
           "value": "5m"
         },
+        "description": "Select the time range over which rates and percentiles are calculated (e.g., 5m = last 5 minutes).",
+        "label": "Interval",
         "name": "interval",
         "options": [
           {
@@ -2462,19 +2465,18 @@
         ],
         "query": "1m,5m,10m,15m,30m,1h",
         "refresh": 2,
-        "type": "interval",
-        "description": "Select the time range over which rates and percentiles are calculated (e.g., 5m = last 5 minutes).",
-        "label": "Interval"
+        "type": "interval"
       },
       {
         "allowCustomValue": false,
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-SERVER}"
+          "uid": "${datasource}"
         },
         "definition": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
         "includeAll": false,
+        "label": "SPIRL Trust Domain",
         "name": "spirl_trust_domain",
         "options": [],
         "query": {
@@ -2484,19 +2486,19 @@
         },
         "refresh": 2,
         "regex": "",
-        "type": "query",
-        "label": "SPIRL Trust Domain"
+        "type": "query"
       },
       {
         "allowCustomValue": false,
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-SERVER}"
+          "uid": "${datasource}"
         },
         "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
         "description": "Select one or more trust domain deployments to filter metrics. Useful for multi-deployment environments.",
         "includeAll": true,
+        "label": "SPIRL Trust Domain Deployment",
         "multi": true,
         "name": "spirl_trust_domain_deployment",
         "options": [],
@@ -2507,19 +2509,19 @@
         },
         "refresh": 2,
         "regex": "",
-        "type": "query",
-        "label": "SPIRL Trust Domain Deployment"
+        "type": "query"
       },
       {
         "allowCustomValue": true,
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS-SERVER}"
+          "uid": "${datasource}"
         },
         "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},${pod_label})",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
+        "label": "Pods",
         "multi": true,
         "name": "pods",
         "options": [],
@@ -2530,23 +2532,30 @@
         },
         "refresh": 2,
         "regex": "",
-        "type": "query",
-        "label": "Pods"
+        "type": "query"
       },
       {
-        "name": "pod_label",
-        "label": "Pod Label",
-        "type": "custom",
-        "query": "pod,k8s_pod_name",
         "current": {
           "text": "pod",
           "value": "pod"
         },
+        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label.",
+        "label": "Pod Label",
+        "name": "pod_label",
         "options": [
-          { "text": "pod", "value": "pod", "selected": true },
-          { "text": "k8s_pod_name", "value": "k8s_pod_name", "selected": false }
+          {
+            "selected": true,
+            "text": "pod",
+            "value": "pod"
+          },
+          {
+            "selected": false,
+            "text": "k8s_pod_name",
+            "value": "k8s_pod_name"
+          }
         ],
-        "description": "Select the label used to identify pod names in Prometheus queries. This variable ensures compatibility with both default Prometheus (which uses pod) and OpenTelemetry Collector (which uses k8s_pod_name). All pod-level metrics and filters in this dashboard will use the selected label."
+        "query": "pod,k8s_pod_name",
+        "type": "custom"
       }
     ]
   },
@@ -2568,6 +2577,5 @@
   "timezone": "",
   "title": "SPIRL Trust Domain Server",
   "uid": "spirl-trust-domain-server",
-  "version": 3,
-  "weekStart": ""
+  "version": 1
 }
