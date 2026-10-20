@@ -1,12 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
-      "description": "",
-      "type": "datasource"
-    }
-  ],
   "__elements": {},
   "__requires": [
     {
@@ -59,7 +51,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "Shows the connection state between Envoy proxies and the Workload API. Green indicates an active connection, red indicates a disconnected state.",
       "fieldConfig": {
@@ -116,7 +108,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "envoy_sds_default_control_plane_connected_state{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}",
@@ -132,7 +124,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "Displays the rate of certificate update failures as a percentage of total update attempts.",
       "fieldConfig": {
@@ -216,7 +208,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -231,7 +223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(envoy_sds_default_update_failure{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label}) / \nclamp_min(sum(rate(envoy_sds_default_update_attempt{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label}), 0.0001)",
@@ -248,7 +240,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "Shows the number of failed key rotation operations per second.",
       "fieldConfig": {
@@ -334,7 +326,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(envoy_sds_default_key_rotation_failed{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by(${pod_label})",
@@ -350,7 +342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "The 95th percentile of time taken to complete certificate updates.",
       "fieldConfig": {
@@ -429,7 +421,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
@@ -445,7 +437,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "The 90th percentile of time taken to complete certificate updates.",
       "fieldConfig": {
@@ -524,7 +516,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.90, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
@@ -540,7 +532,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "The median (50th percentile) time taken to complete certificate updates.",
       "fieldConfig": {
@@ -619,7 +611,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.50, sum(rate(envoy_sds_default_update_duration_bucket{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (le, ${pod_label}))",
@@ -635,7 +627,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${datasource}"
       },
       "description": "Total number of certificate updates attempted and succeeded.",
       "fieldConfig": {
@@ -714,7 +706,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(envoy_sds_default_update_attempt{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (${pod_label})",
@@ -726,7 +718,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(rate(envoy_sds_default_update_success{${pod_label}=~\"$pods\", ${pod_label}!=\"\", spirl_enabled=\"true\"}[$interval])) by (${pod_label})",
@@ -750,9 +742,21 @@
     "list": [
       {
         "current": {},
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${datasource}"
         },
         "definition": "label_values(envoy_sds_default_control_plane_connected_state,namespace)",
         "includeAll": true,
@@ -774,7 +778,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${datasource}"
         },
         "definition": "label_values({namespace=~\"$namespace\"},app)",
         "description": "",
@@ -796,7 +800,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${datasource}"
         },
         "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"},${pod_label})",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
