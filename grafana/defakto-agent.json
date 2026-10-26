@@ -183,7 +183,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by (le) (sum by (le, ${pod_label}) (rate(defakto_agent_mint_svid_duration_seconds_bucket{${pod_label}=~\"$pods\"}[$interval]))))",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(defakto_agent_mint_svid_duration_seconds_bucket{${pod_label}=~\"$pods\"}[$interval])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1957,19 +1957,19 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (td) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"},defakto_trust_domain)",
         "description": "",
         "includeAll": false,
         "label": "Trust Domain",
         "name": "defakto_trust_domain",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (td) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"},defakto_trust_domain)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/td=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },
@@ -1980,7 +1980,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (tdd) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\"},defakto_trust_domain_deployment)",
         "description": "",
         "includeAll": true,
         "label": "Trust Domain Deployment",
@@ -1988,12 +1988,12 @@
         "name": "defakto_trust_domain_deployment",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (tdd) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\"},defakto_trust_domain_deployment)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/tdd=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },
@@ -2004,7 +2004,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (p) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"},${pod_label})",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
         "label": "Pods",
@@ -2012,12 +2012,12 @@
         "name": "pods",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (p) (label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/p=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },

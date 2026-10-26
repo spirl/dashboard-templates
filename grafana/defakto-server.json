@@ -1690,7 +1690,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grpc_server_msg_sent_total{\n  ${pod_label}=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
+          "expr": "sum(rate(grpc_server_msg_received_total{\n  ${pod_label}=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"client_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
           "hide": false,
           "instant": false,
           "legendFormat": "{{grpc_method}}-received",
@@ -2462,18 +2462,18 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (td) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"},defakto_trust_domain)",
         "includeAll": false,
         "label": "Trust Domain",
         "name": "defakto_trust_domain",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (td) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"},defakto_trust_domain)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/td=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },
@@ -2484,7 +2484,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (tdd) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\"},defakto_trust_domain_deployment)",
         "description": "Select one or more trust domain deployments to filter metrics. Useful for multi-deployment environments.",
         "includeAll": true,
         "label": "Trust Domain Deployment",
@@ -2492,12 +2492,12 @@
         "name": "defakto_trust_domain_deployment",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (tdd) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\"},defakto_trust_domain_deployment)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/tdd=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },
@@ -2508,7 +2508,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (p) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+        "definition": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"},${pod_label})",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
         "label": "Pods",
@@ -2516,12 +2516,12 @@
         "name": "pods",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (p) (label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$defakto_trust_domain\", defakto_trust_domain_deployment=~\"$defakto_trust_domain_deployment\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/p=\"([^\"]+)\"/",
+        "regex": "",
         "type": "query",
         "sort": 1
       },

@@ -383,7 +383,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max by (trust_domain, trust_domain_deployment, app_version) (\n    label_replace(label_replace(label_replace(spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"server\", spirl_trust_domain!=\"\"}, \"trust_domain\", \"$1\", \"spirl_trust_domain\", \"(.*)\"), \"trust_domain_deployment\", \"$1\", \"spirl_trust_domain_deployment\", \"(.*)\"), \"app_version\", \"$1\", \"spirl_app_version\", \"(.*)\")\n    or\n    label_replace(label_replace(label_replace(defakto_application_info{${pod_label}=~\"$pods\", defakto_component=\"server\", defakto_trust_domain!=\"\"}, \"trust_domain\", \"$1\", \"defakto_trust_domain\", \"(.*)\"), \"trust_domain_deployment\", \"$1\", \"defakto_trust_domain_deployment\", \"(.*)\"), \"app_version\", \"$1\", \"defakto_app_version\", \"(.*)\")\n  )",
+          "expr": "max by (spirl_trust_domain, spirl_trust_domain_deployment, spirl_app_version) (spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"server\", spirl_trust_domain!=\"\"})",
           "format": "table",
           "instant": true,
           "legendFormat": "",
@@ -398,18 +398,30 @@
           "options": {
             "excludeByName": {
               "Time": true,
-              "Value": true
+              "Value": true,
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "pod": true,
+              "spirl_component": true
             },
             "includeByName": {},
             "indexByName": {
-              "trust_domain": 0,
-              "trust_domain_deployment": 1,
-              "app_version": 2
+              "Time": 3,
+              "Value": 9,
+              "__name__": 4,
+              "instance": 5,
+              "job": 6,
+              "pod": 7,
+              "spirl_app_version": 2,
+              "spirl_component": 8,
+              "spirl_trust_domain": 0,
+              "spirl_trust_domain_deployment": 1
             },
             "renameByName": {
-              "trust_domain": "Trust Domain",
-              "trust_domain_deployment": "Trust Domain Deployment",
-              "app_version": "Version"
+              "spirl_app_version": "Version",
+              "spirl_trust_domain": "Trust Domain",
+              "spirl_trust_domain_deployment": "Trust Domain Deployment"
             }
           }
         }
@@ -2462,20 +2474,19 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (td) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"spirl_trust_domain\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+        "definition": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
         "includeAll": false,
-        "label": "Trust Domain",
+        "label": "SPIRL Trust Domain",
         "name": "spirl_trust_domain",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (td) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"spirl_trust_domain\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values({spirl_component=\"server\"},spirl_trust_domain)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/td=\"([^\"]+)\"/",
-        "type": "query",
-        "sort": 1
+        "regex": "",
+        "type": "query"
       },
       {
         "allowCustomValue": false,
@@ -2484,22 +2495,21 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (tdd) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"spirl_trust_domain_deployment\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
         "description": "Select one or more trust domain deployments to filter metrics. Useful for multi-deployment environments.",
         "includeAll": true,
-        "label": "Trust Domain Deployment",
+        "label": "SPIRL Trust Domain Deployment",
         "multi": true,
         "name": "spirl_trust_domain_deployment",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (tdd) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"spirl_trust_domain_deployment\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"server\"},spirl_trust_domain_deployment)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/tdd=\"([^\"]+)\"/",
-        "type": "query",
-        "sort": 1
+        "regex": "",
+        "type": "query"
       },
       {
         "allowCustomValue": true,
@@ -2508,7 +2518,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "query_result(group by (p) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$spirl_trust_domain\", defakto_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},${pod_label})",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
         "label": "Pods",
@@ -2516,14 +2526,13 @@
         "name": "pods",
         "options": [],
         "query": {
-          "qryType": 3,
-          "query": "query_result(group by (p) (label_replace(last_over_time(spirl_application_info{spirl_component=\"server\", spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"server\", defakto_trust_domain=\"$spirl_trust_domain\", defakto_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
+          "qryType": 1,
+          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"server\"},${pod_label})",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/p=\"([^\"]+)\"/",
-        "type": "query",
-        "sort": 1
+        "regex": "",
+        "type": "query"
       },
       {
         "current": {
