@@ -183,7 +183,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, \n  sum(rate(spirl_agent_mint_svid_duration_seconds_bucket{\n${pod_label}=~\"$pods\"}[$interval])) by (le)\n)",
+          "expr": "histogram_quantile(0.95, sum by (le) (\n    sum by (le, ${pod_label}) (rate(spirl_agent_mint_svid_duration_seconds_bucket{${pod_label}=~\"$pods\"}[$interval]))\n    or\n    sum by (le, ${pod_label}) (rate(defakto_agent_mint_svid_duration_seconds_bucket{${pod_label}=~\"$pods\"}[$interval]))\n  ))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -382,7 +382,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "max by (spirl_trust_domain, spirl_trust_domain_deployment, spirl_app_version) (spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"agent\", spirl_trust_domain!=\"\"})",
+          "expr": "max by (trust_domain, trust_domain_deployment, app_version) (\n    label_replace(label_replace(label_replace(spirl_application_info{${pod_label}=~\"$pods\", spirl_component=\"agent\", spirl_trust_domain!=\"\"}, \"trust_domain\", \"$1\", \"spirl_trust_domain\", \"(.*)\"), \"trust_domain_deployment\", \"$1\", \"spirl_trust_domain_deployment\", \"(.*)\"), \"app_version\", \"$1\", \"spirl_app_version\", \"(.*)\")\n    or\n    label_replace(label_replace(label_replace(defakto_application_info{${pod_label}=~\"$pods\", defakto_component=\"agent\", defakto_trust_domain!=\"\"}, \"trust_domain\", \"$1\", \"defakto_trust_domain\", \"(.*)\"), \"trust_domain_deployment\", \"$1\", \"defakto_trust_domain_deployment\", \"(.*)\"), \"app_version\", \"$1\", \"defakto_app_version\", \"(.*)\")\n  )",
           "format": "table",
           "instant": true,
           "legendFormat": "",
@@ -397,30 +397,18 @@
           "options": {
             "excludeByName": {
               "Time": true,
-              "Value": true,
-              "__name__": true,
-              "instance": true,
-              "job": true,
-              "pod": true,
-              "spirl_component": true
+              "Value": true
             },
             "includeByName": {},
             "indexByName": {
-              "Time": 3,
-              "Value": 9,
-              "__name__": 4,
-              "instance": 5,
-              "job": 6,
-              "pod": 7,
-              "spirl_app_version": 2,
-              "spirl_component": 8,
-              "spirl_trust_domain": 0,
-              "spirl_trust_domain_deployment": 1
+              "trust_domain": 0,
+              "trust_domain_deployment": 1,
+              "app_version": 2
             },
             "renameByName": {
-              "spirl_app_version": "Version",
-              "spirl_trust_domain": "Trust Domain",
-              "spirl_trust_domain_deployment": "Trust Domain Deployment"
+              "trust_domain": "Trust Domain",
+              "trust_domain_deployment": "Trust Domain Deployment",
+              "app_version": "Version"
             }
           }
         }
@@ -1969,20 +1957,21 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values({spirl_component=\"agent\"},spirl_trust_domain)",
+        "definition": "query_result(group by (td) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"spirl_trust_domain\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
         "description": "",
         "includeAll": false,
-        "label": "spirl_trust_domain",
+        "label": "Trust Domain",
         "name": "spirl_trust_domain",
         "options": [],
         "query": {
-          "qryType": 1,
-          "query": "label_values({spirl_component=\"agent\"},spirl_trust_domain)",
+          "qryType": 3,
+          "query": "query_result(group by (td) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"spirl_trust_domain\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain!=\"\"}[$__range]), \"td\", \"$1\", \"defakto_trust_domain\", \"(.+)\")))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "",
-        "type": "query"
+        "regex": "/td=\"([^\"]+)\"/",
+        "type": "query",
+        "sort": 1
       },
       {
         "allowCustomValue": false,
@@ -1991,21 +1980,22 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"agent\"},spirl_trust_domain_deployment)",
+        "definition": "query_result(group by (tdd) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"spirl_trust_domain_deployment\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
         "description": "",
         "includeAll": true,
-        "label": "spirl_trust_domain_deployment",
+        "label": "Trust Domain Deployment",
         "multi": true,
         "name": "spirl_trust_domain_deployment",
         "options": [],
         "query": {
-          "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_component=\"agent\"},spirl_trust_domain_deployment)",
+          "qryType": 3,
+          "query": "query_result(group by (tdd) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"spirl_trust_domain_deployment\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$spirl_trust_domain\"}[$__range]), \"tdd\", \"$1\", \"defakto_trust_domain_deployment\", \"(.+)\")))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "",
-        "type": "query"
+        "regex": "/tdd=\"([^\"]+)\"/",
+        "type": "query",
+        "sort": 1
       },
       {
         "allowCustomValue": true,
@@ -2014,7 +2004,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},${pod_label})",
+        "definition": "query_result(group by (p) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$spirl_trust_domain\", defakto_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
         "description": "Select one or more pods to filter metrics. The label used for pod names is determined by the 'Pod Label' variable.",
         "includeAll": true,
         "label": "Pods",
@@ -2022,13 +2012,14 @@
         "name": "pods",
         "options": [],
         "query": {
-          "qryType": 1,
-          "query": "label_values({spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\", spirl_component=\"agent\"},${pod_label})",
+          "qryType": 3,
+          "query": "query_result(group by (p) (label_replace(last_over_time(spirl_application_info{spirl_component=\"agent\", spirl_trust_domain=\"$spirl_trust_domain\", spirl_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\") or label_replace(last_over_time(defakto_application_info{defakto_component=\"agent\", defakto_trust_domain=\"$spirl_trust_domain\", defakto_trust_domain_deployment=~\"$spirl_trust_domain_deployment\"}[$__range]), \"p\", \"$1\", \"${pod_label}\", \"(.+)\")))",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "",
-        "type": "query"
+        "regex": "/p=\"([^\"]+)\"/",
+        "type": "query",
+        "sort": 1
       },
       {
         "current": {
