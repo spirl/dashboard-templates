@@ -1392,7 +1392,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
@@ -1492,7 +1492,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
@@ -1592,7 +1592,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
@@ -1702,7 +1702,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(grpc_server_msg_sent_total{\n  ${pod_label}=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"server_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
+          "expr": "sum(rate(grpc_server_msg_received_total{\n  ${pod_label}=~\"$pods\",\n  grpc_service=~\"com.spirl.agent.v1.agent.API|com.spirl.agent.v1.session.API\",\n  grpc_type=~\"client_stream|bidi_stream\"\n}[$interval])) by (grpc_method)\n",
           "hide": false,
           "instant": false,
           "legendFormat": "{{grpc_method}}-received",
