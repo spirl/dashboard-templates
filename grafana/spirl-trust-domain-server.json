@@ -1392,7 +1392,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
@@ -1492,7 +1492,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
@@ -1592,7 +1592,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{grpc_service}}",
+          "legendFormat": "{{grpc_method}}",
           "range": true,
           "refId": "A"
         }
