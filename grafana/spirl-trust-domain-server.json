@@ -3045,7 +3045,7 @@
           "refId": "A"
         }
       ],
-      "title": "KEK Rotation Failure Streak",
+      "title": "Time Since Last Successful KEK Rotation",
       "type": "stat"
     },
     {
