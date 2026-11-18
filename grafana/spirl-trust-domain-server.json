@@ -3119,7 +3119,7 @@
           "refId": "A"
         }
       ],
-      "title": "KEK Generations Held",
+      "title": "KEK Generations Not Yet Retired",
       "type": "stat"
     },
     {
@@ -3216,7 +3216,7 @@
           "refId": "A"
         }
       ],
-      "title": "KEK Rewrap/Verify Outcomes",
+      "title": "KEK Rewrap & Verify Results",
       "transformations": [
         {
           "id": "filterFieldsByName",
