@@ -1976,7 +1976,7 @@
           "refId": "A"
         }
       ],
-      "title": "SVIDs Expiring",
+      "title": "SVIDs Overdue for Rotation",
       "type": "stat"
     },
     {
@@ -2046,7 +2046,7 @@
           "refId": "A"
         }
       ],
-      "title": "SVIDs Outdated",
+      "title": "SVIDs Past Expiry",
       "type": "stat"
     },
     {
@@ -2143,7 +2143,7 @@
           "refId": "A"
         }
       ],
-      "title": "Mint Failures by Cause",
+      "title": "SVID Issuance Failures by Cause",
       "transformations": [
         {
           "id": "filterFieldsByName",
